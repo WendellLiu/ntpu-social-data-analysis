@@ -994,6 +994,15 @@ wheels = [
 ]
 
 [[package]]
+name = "narwhals"
+version = "2.5.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/7b/b8/3cb005704866f1cc19e8d6b15d0467255821ba12d82f20ea15912672e54c/narwhals-2.5.0.tar.gz", hash = "sha256:8ae0b6f39597f14c0dc52afc98949d6f8be89b5af402d2d98101d2f7d3561418", size = 558573, upload-time = "2025-09-12T10:04:24.436Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f8/5a/22741c5c0e5f6e8050242bfc2052ba68bc94b1735ed5bca35404d136d6ec/narwhals-2.5.0-py3-none-any.whl", hash = "sha256:7e213f9ca7db3f8bf6f7eff35eaee6a1cf80902997e1b78d49b7755775d8f423", size = 407296, upload-time = "2025-09-12T10:04:22.524Z" },
+]
+
+[[package]]
 name = "nbclient"
 version = "0.10.2"
 source = { registry = "https://pypi.org/simple" }
@@ -1095,6 +1104,7 @@ dependencies = [
     { name = "matplotlib" },
     { name = "numpy" },
     { name = "pandas" },
+    { name = "pyreadstat" },
     { name = "scikit-learn" },
     { name = "scipy" },
     { name = "seaborn" },
@@ -1107,6 +1117,7 @@ requires-dist = [
     { name = "matplotlib", specifier = ">=3.10.6" },
     { name = "numpy", specifier = ">=2.3.3" },
     { name = "pandas", specifier = ">=2.3.2" },
+    { name = "pyreadstat", specifier = ">=1.3.1" },
     { name = "scikit-learn", specifier = ">=1.7.2" },
     { name = "scipy", specifier = ">=1.16.2" },
     { name = "seaborn", specifier = ">=0.13.2" },
@@ -1373,6 +1384,23 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/98/c9/b4594e6a81371dfa9eb7a2c110ad682acf985d96115ae8b25a1d63b4bf3b/pyparsing-3.2.4.tar.gz", hash = "sha256:fff89494f45559d0f2ce46613b419f632bbb6afbdaed49696d322bcf98a58e99", size = 1098809, upload-time = "2025-09-13T05:47:19.732Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/53/b8/fbab973592e23ae313042d450fc26fa24282ebffba21ba373786e1ce63b4/pyparsing-3.2.4-py3-none-any.whl", hash = "sha256:91d0fcde680d42cd031daf3a6ba20da3107e08a75de50da58360e7d94ab24d36", size = 113869, upload-time = "2025-09-13T05:47:17.863Z" },
+]
+
+[[package]]
+name = "pyreadstat"
+version = "1.3.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "narwhals" },
+    { name = "numpy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b7/d6/7e320a91eb66b9158cc428b62baba4f95a2d384af46a94225b61445a2e8a/pyreadstat-1.3.1.tar.gz", hash = "sha256:5e22b4000570cc0b0b850c7fedc13129546729ca413d67697ede0074423b1ef6", size = 610773, upload-time = "2025-08-14T13:58:15.855Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f5/61/48dc6090e999db55920e03c60fe07a4e365cdfb4a3276dc31a983e0d1361/pyreadstat-1.3.1-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:62b25a9b41902161ba1887acdb4121ec792e055649f2f92cca0bc552526a7d6d", size = 622469, upload-time = "2025-08-14T13:58:04.796Z" },
+    { url = "https://files.pythonhosted.org/packages/1d/74/3b1831bb937a69ca2ffc807a1be984792cefa01083d5c3edac8c9c0a9af9/pyreadstat-1.3.1-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:b107199a310880ef8fb509068888a7242d5ae2b27f658b4feddf02b77da14c0f", size = 621649, upload-time = "2025-08-14T13:58:06.563Z" },
+    { url = "https://files.pythonhosted.org/packages/c8/26/54838b93bf9e710a2b703158dca238b3bc04369d9ceb7dbba5a4728b5587/pyreadstat-1.3.1-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:abe59aa450a4e0b677e17036500da2c7b6f27f28d5d7ca7d09e47d1a484662b8", size = 634119, upload-time = "2025-08-14T13:58:08.789Z" },
+    { url = "https://files.pythonhosted.org/packages/cb/38/1a6da8a50cbc1384128c818582dce3c31269afa82258d74cd677bffd503f/pyreadstat-1.3.1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:38f296cede7b02bbefce44dcc1a1713bf7b143fac82fd8b7e13bdf44a1eb21e7", size = 665371, upload-time = "2025-08-14T13:58:10.909Z" },
+    { url = "https://files.pythonhosted.org/packages/06/74/1090e6cfe3ea842f009394feedef3203c19d78b91ab14356cbbdeb6f0ac6/pyreadstat-1.3.1-cp313-cp313-win_amd64.whl", hash = "sha256:de2e258ce3b3c8c19a0adcd33a835b8141028f07cf2aa7f950af2250150deb9a", size = 2396063, upload-time = "2025-08-14T13:58:14.231Z" },
 ]
 
 [[package]]
