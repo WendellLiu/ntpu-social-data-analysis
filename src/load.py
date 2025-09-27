@@ -1,7 +1,3 @@
-"""
-Simple CSV/TXT loading utilities.
-"""
-
 import pandas as pd
 from pathlib import Path
 from typing import List, Optional
@@ -39,5 +35,11 @@ def load_to_dataframe(
     print(f"✅ Loaded file: {Path(file_path).name}")
     print(f"📊 Shape: {df.shape}")
     print(f"📋 Columns: {list(df.columns)}")
+
+    return df
+
+
+def load_sav(file_path) -> pd.DataFrame:
+    df = pd.read_spss(file_path)
 
     return df
