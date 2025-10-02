@@ -39,7 +39,9 @@ def load_to_dataframe(
     return df
 
 
-def load_sav(file_path) -> pd.DataFrame:
-    df = pd.read_spss(file_path)
+def load_sav(
+    file_path, usecols=None, convert_categoricals: bool = False
+) -> pd.DataFrame:
+    df = pd.read_spss(file_path, usecols, convert_categoricals)
 
     return df
