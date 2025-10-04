@@ -4,13 +4,30 @@ from scipy import stats
 
 
 def distribution_plot(
-    data, xlabel="Value", ylabel="Density", title="Distribution", with_normal_curve=True
+    data,
+    xlabel="Value",
+    ylabel="Density",
+    title="Distribution",
+    with_normal_curve=True,
+    should_standardize=False,
 ):
     # Create figure
     fig, ax = plt.subplots(figsize=(10, 6))
 
+    if should_standardize:
+        data_standardized = (data - data.mean()) / data.std()
+        data = data_standardized
+
     # Plot histogram
-    ax.hist(data, bins=30, density=True, alpha=0.7, color="skyblue", edgecolor="black")
+    ax.hist(
+        data,
+        bins=30,
+        density=True,
+        alpha=0.7,
+        color="skyblue",
+        edgecolor="black",
+        label=xlabel,
+    )
 
     # Fit normal distribution and plot
     if with_normal_curve:
