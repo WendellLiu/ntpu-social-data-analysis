@@ -32,7 +32,9 @@ def distribution_plot(
     # Fit normal distribution and plot
     if with_normal_curve:
         mu, sigma = stats.norm.fit(data)
-        x = np.linspace(data.min(), data.max(), 100)
+        x_min = mu - 4 * sigma
+        x_max = mu + 4 * sigma
+        x = np.linspace(x_min, x_max, 200)
         pdf = stats.norm.pdf(x, mu, sigma)
         ax.plot(x, pdf, "r-", linewidth=2, label=f"Normal (μ={mu:.2f}, σ={sigma:.2f})")
 
