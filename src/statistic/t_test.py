@@ -1,7 +1,7 @@
-from scipy.stats import levene, ttest_ind
+from scipy.stats import levene, ttest_ind, ttest_rel
 
 
-def compare_two_samples(series1, series2):
+def compare_independent_samples(series1, series2):
     # Levene test
     levene_result = levene(series1, series2)
 
@@ -25,3 +25,22 @@ def compare_two_samples(series1, series2):
     }
 
     return results
+
+
+def compare_paired_samples(series1, series2):
+    # Check assumptions
+    differences = series1 - series2
+    mean = differences.mean()
+    std = differences.std()
+
+    # Perform paired t-test
+    t_stat, p_value = ttest_rel(series1, series2)
+
+    result = {
+        "mean": mean,
+        "std": std,
+        "t_stat": t_stat,
+        "p_value": p_value,
+    }
+
+    return result
