@@ -37,8 +37,8 @@ def compare_paired_samples(series1, series2):
     t_stat, p_value = ttest_rel(series1, series2)
 
     result = {
-        "mean": mean,
-        "std": std,
+        "diff_mean": mean,
+        "diff_std": std,
         "t_stat": t_stat,
         "p_value": p_value,
     }
