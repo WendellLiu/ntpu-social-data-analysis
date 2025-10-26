@@ -24,7 +24,7 @@ def perform_post_hoc(
         return gh_result
 
 
-def perform_ancova(df, val_col, group_col, covar_col, ss_type=3):
+def perform_ancova(df, val_col, group_col, covar_col, ss_type=1):
     """
     Perform ANCOVA analysis
 
@@ -67,3 +67,20 @@ def perform_ancova(df, val_col, group_col, covar_col, ss_type=3):
     ancova_table = anova_lm(model, typ=ss_type)
 
     return ancova_table
+
+
+def check_linearity(df, val_col, covar_col, ss_type=3):
+    """Check linearity: val ~ covar"""
+    df_clean = df[[val_col, covar_col]].dropna()
+    formula = f"{val_col} ~ {covar_col}"
+    model = ols(formula, data=df_clean).fit()
+    return anova_lm(model, typ=ss_type)
+
+
+def check_interaction(df, val_col, group_col, covar_col, ss_type=3):
+    """Check interaction: val ~ group * covar"""
+    required_cols = [val_col, group_col, covar_col]
+    df_clean = df[required_cols].dropna()
+    formula = f"{val_col} ~ C({group_col}) * {covar_col}"
+    model = ols(formula, data=df_clean).fit()
+    return anova_lm(model, typ=ss_type)
