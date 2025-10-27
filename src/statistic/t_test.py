@@ -67,4 +67,4 @@ def compare_paired_samples(series1, series2):
         "p_value": p_value,
     }
 
-    return result
+    return pd.DataFrame({"Value": result.values()}, index=result.keys())
