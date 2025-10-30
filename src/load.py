@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import List, Optional
 
 
-def load_to_dataframe(
+def load_csv(
     file_path: str, column_names: Optional[List[str]] = None, delimiter: str = ","
 ) -> pd.DataFrame:
     """
