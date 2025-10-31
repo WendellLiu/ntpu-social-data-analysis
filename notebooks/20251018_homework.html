@@ -7614,7 +7614,7 @@ Name: count, dtype: int64</pre>
 <li>H0: mean = 12</li>
 <li>H1: mean != 12</li>
 </ul>
-<p>並且以p value &lt; 0.05 為檢定判準</p>
+<p>並且以$\alpha$ &lt; 0.05 為檢定判準</p>
 </div>
 </div>
 </div>
@@ -7679,7 +7679,7 @@ Name: count, dtype: int64</pre>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>t-test 結果為t: 12.31，並且p value &lt; 0.05
-故接受H0，母體平均數為12</p>
+故拒絕H0。母體平均數不為12</p>
 </div>
 </div>
 </div>
@@ -7850,8 +7850,18 @@ Name: count, dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Answer">Answer<a class="anchor-link" href="#Answer">¶</a></h3><p>首先檢視Levene's test 的P Value &gt; 0.05，故接受Levenu's test 的H0（兩母群變異數相等）。
-進一步檢視假設變異數相等的分析結果，由於P Value &gt; 0.05，故不同性別與教育程度無顯著差異。</p>
+<h3 id="Answer">Answer<a class="anchor-link" href="#Answer">¶</a></h3><p><strong>Levene's Test</strong>
+H0: 兩母群體變異數相同
+H1: 兩母群體變異數不相同
+$\alpha = 0.05$</p>
+<p>首先檢視表格中Levene's Test 的P Value &gt; 0.05，接受Levenu's test 的H0（兩母群體變異數相等）。</p>
+<p>接下觀察母群體變異數相同的T Test 結果</p>
+<p>設定：
+男性、女性受訪者教育程度平均數為 $\mu_1$、$\mu_2$<br/>
+$H_0: \mu_1 = \mu_2$<br/>
+$H_1: \mu_1 \neq \mu_2$<br/>
+$\alpha = 0.05$</p>
+<p>由此設定進一步檢視假設變異數相等的分析結果，P Value &gt; 0.05，不同性別與教育程度無顯著差異。</p>
 </div>
 </div>
 </div>
@@ -8280,7 +8290,11 @@ Name: count, dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>依據Paired Samples T-Test 結果，p value(0.43) &gt; 0.05 ；故受訪者教育程度與其配偶教育程度無顯著差異</p>
+<p>設定：受訪者與其配偶的教育程度平均數分別為$\mu_1$、$\mu_1$<br/>
+$H_0: \mu_1 = \mu_2$<br/>
+$H_1: \mu_1 \neq \mu_2$<br/>
+$\alpha = 0.05$</p>
+<p>依據Paired Samples T-Test 結果，p value(0.43) &gt; 0.05 ，接受虛無假設；故受訪者教育程度與其配偶教育程度無顯著差異</p>
 </div>
 </div>
 </div>

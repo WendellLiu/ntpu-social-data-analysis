@@ -7697,7 +7697,11 @@ Name: count, dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>執行ANOVA</p>
+<p>執行ANOVA<br/>
+設定：不同年齡組別的收入平均數分別為 $\mu_1$、$\mu_2$、$\mu_3$<br/>
+$H_0: \mu_1 = \mu_2 = \mu_3$<br/>
+$H_1: \mu_k 不完全相等$<br/>
+$\alpha = 0.05$</p>
 </div>
 </div>
 </div>
@@ -7767,7 +7771,7 @@ Name: count, dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>依據agegroup 的P value 結果顯示<strong>三組間存在差異</strong></p>
+<p>依據ANOVA 結果，agegroup 的P value &lt; 0.05 ，拒絕虛無假設。結果顯示<strong>三組間存在差異</strong></p>
 </div>
 </div>
 </div>
@@ -7831,7 +7835,8 @@ Name: count, dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>結果顯示P Value 遠小於0.05：非均值。由於樣本數&gt;50 (Shingala and Rajyaguru, 2015)，選擇games-howell 方法求得三組間兩兩比較的結果</p>
+<p>結果顯示P Value 遠小於0.05：非均值。<br/>
+由於樣本數&gt;50 (Shingala and Rajyaguru, 2015)，選擇games-howell 方法求得三組間兩兩比較的結果</p>
 </div>
 </div>
 </div>
@@ -8226,7 +8231,7 @@ Name: count, dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>由agegroup: eduy 的P value 可知年齡分組與教育程度交互作用顯著，故不符合ANCOVA 的假設，不繼續進行ANCOVA。</p>
+<p>由agegroup: eduy 的P value &gt; 0.05 可知年齡分組與教育程度交互作用顯著，故不符合ANCOVA 的假設，不繼續進行ANCOVA。</p>
 </div>
 </div>
 </div>
