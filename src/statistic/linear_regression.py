@@ -125,3 +125,38 @@ def vif_analysis(X):
     )
 
     return vif_report
+
+
+def mediation_analysis(X, Z, Y):
+    """
+    Mediation analysis using statsmodels summary
+
+    Parameters:
+    - X: pandas Series (independent variable)
+    - Z: pandas Series (mediator variable)
+    - Y: pandas Series (dependent variable)
+
+    Returns:
+    - Dictionary with model summaries and summary tables
+    """
+
+    # Model 1: Y = c + b*X (Total Effect)
+    X1 = sm.add_constant(X)
+    total_effect_model = sm.OLS(Y, X1).fit()
+
+    # Model 2: Z = c + b*X (Mediator Model)
+    X2 = sm.add_constant(X)
+    mediator_model = sm.OLS(Z, X2).fit()
+
+    # Model 3: Y = c + b_x*X + b_z*Z (Direct Effect)
+    XZ = pd.DataFrame({"const": 1, X.name: X, Z.name: Z})
+    direct_effect_model = sm.OLS(Y, XZ).fit()
+
+    return {
+        "total_effect_model": total_effect_model,
+        "total_effect_summary": total_effect_model.summary(),
+        "mediator_model": mediator_model,
+        "mediator_summary": mediator_model.summary(),
+        "direct_effect_model": direct_effect_model,
+        "direct_effect_summary": direct_effect_model.summary(),
+    }
