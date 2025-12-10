@@ -160,3 +160,34 @@ def mediation_analysis(X, Z, Y):
         "direct_effect_model": direct_effect_model,
         "direct_effect_summary": direct_effect_model.summary(),
     }
+
+
+def moderator_analysis(X, Z, Y):
+    """
+    Moderator analysis using statsmodels
+
+    Parameters:
+    - X: pandas Series (independent variable)
+    - Z: pandas Series (moderator variable)
+    - Y: pandas Series (dependent variable)
+
+    Returns:
+    - Dictionary with model summaries for main effects and interaction model
+    """
+
+    # Model 1: Y = b1*X + b2*Z + a (Main Effects)
+    XZ_main = pd.DataFrame({X.name: X, Z.name: Z})
+    XZ_main = sm.add_constant(XZ_main)
+    main_effects_model = sm.OLS(Y, XZ_main).fit()
+
+    # Model 2: Y = b1*X + b2*Z + b3*X*Z + a (Interaction Model)
+    XZ_interaction = pd.DataFrame({X.name: X, Z.name: Z, f"{X.name}*{Z.name}": X * Z})
+    XZ_interaction = sm.add_constant(XZ_interaction)
+    interaction_model = sm.OLS(Y, XZ_interaction).fit()
+
+    return {
+        "main_effects_model": main_effects_model,
+        "main_effects_summary": main_effects_model.summary(),
+        "interaction_model": interaction_model,
+        "interaction_summary": interaction_model.summary(),
+    }
