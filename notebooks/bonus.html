@@ -7578,42 +7578,7 @@ a.anchor-link {
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput" id="cell-id=c76392f3-3f0b-47d6-8cae-5c6d5cdc9c80">
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=ff9718ab-56d2-4ee2-af30-21fe5244a12a">
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>{1.0: '無(不識字)',
- 2.0: '自修(識字、私塾)',
- 3.0: '小學肄業',
- 4.0: '國(初)中',
- 5.0: '初職',
- 6.0: '高中普通科',
- 7.0: '高中職業科',
- 8.0: '高職',
- 9.0: '士官學校',
- 10.0: '五專',
- 11.0: '二專',
- 12.0: '三專',
- 13.0: '軍警專修班',
- 14.0: '軍警專科班',
- 15.0: '空中行專',
- 16.0: '空中大學',
- 17.0: '軍警官學校',
- 18.0: '技術學院、科大',
- 19.0: '大學',
- 20.0: '碩士',
- 21.0: '博士',
- 22.0: '其他',
- 997.0: '拒答',
- 998.0: '漏答',
- 999.0: '不適用'}</pre>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput" id="cell-id=ff9718ab-56d2-4ee2-af30-21fe5244a12a">
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8ba148a8-985f-4ad2-ab3f-1898a1176e87">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7647,6 +7612,16 @@ Name: count, dtype: int64</pre>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs jp-mod-noInput" id="cell-id=3e1e9d3f-8eed-437c-a3fa-a66905b0122b">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=03024950-bcb7-430a-b5d0-8575a81ec6f3">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>計算敘述性統計</p>
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=f46db921-c378-468a-a694-977f1ec07c50">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
@@ -7946,7 +7921,7 @@ Name: count, dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>統計不同性別其配偶教育年數的敘述性統計</p>
+<p>計算不同性別其配偶教育年數的敘述性統計</p>
 </div>
 </div>
 </div>
@@ -8110,13 +8085,12 @@ $\alpha = 0.05$</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Levene's Test</strong>
-H0: 兩母群體變異數相同
-H1: 兩母群體變異數不相同
+<p><strong>Levene's Test</strong><br/>
+H0: 兩母群體變異數相同<br/>
+H1: 兩母群體變異數不相同<br/>
 $\alpha = 0.05$</p>
 <p>檢視表格中Levene's Test 的P Value &gt; 0.05，接受Levenu's test 的H0（兩母群體變異數相等）。</p>
-<p>接下觀察母群體變異數相同的T Test 結果</p>
-<p>由此設定進一步檢視假設變異數相等的分析結果，P Value &gt; 0.05，不同性別之其配偶教育年數無顯著差異。</p>
+<p>接下觀察母群體變異數相同的T Test 結果：由於P Value &gt; 0.05，接受虛無假設，不同性別之其配偶教育年數無顯著差異。</p>
 </div>
 </div>
 </div>
@@ -8254,18 +8228,6 @@ $\alpha = 0.05$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>首先，計算不同組別的敘述性統計</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noInput" id="cell-id=a63ad16c-2351-44cd-8f77-534fb95c2dfc">
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>{1.0: '青壯年', 2.0: '中年', 3.0: '老年'}</pre>
-</div>
 </div>
 </div>
 </div>
