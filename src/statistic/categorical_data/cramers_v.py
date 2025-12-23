@@ -17,4 +17,9 @@ def cramers_v(row_series, col_series):
 
     v = association(observed, method="cramer")
 
-    return {"cramers_v": v}
+    return pd.DataFrame(
+        {
+            "Value": [v],
+        },
+        index=["Cramer's V"],
+    )
