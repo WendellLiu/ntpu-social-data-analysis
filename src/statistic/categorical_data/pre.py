@@ -381,30 +381,41 @@ def _tau_series2_dependent(crosstab, n):
 
     tau = (var_y - e_var_y_given_x) / var_y
 
-    # ASE using Delta Method
-    variance_sum = 0
+    # ASE using Delta Method (corrected)
+    # Based on delta method, Var(tau) = (sum(d_ij^2 * p_ij) - (sum(d_ij * p_ij))^2) / n
+    sum_d_sq_p = 0
+    sum_d_p = 0
 
     for i in range(r):
+        p_i_plus_val = p_i_plus[i]
+        if p_i_plus_val == 0:
+            continue
+
+        p_j_given_i = P[i, :] / p_i_plus_val
+        var_y_given_i = 1 - np.sum(p_j_given_i**2)
+
         for j in range(c):
             p_ij = P[i, j]
+            if p_ij == 0:
+                continue
 
-            if p_i_plus[i] > 0:
-                d_var_y = -2 * p_plus_j[j]
+            # Derivative of E[Var(Y|X)] w.r.t p_ij
+            d_e_var_dp_ij = (1 - var_y_given_i) - 2 * p_j_given_i[j]
 
-                p_j_given_i = P[i, :] / p_i_plus[i]
-                var_y_given_i = 1 - (p_j_given_i**2).sum()
+            # Derivative of Var(Y) w.r.t p_ij
+            d_var_y_dp_ij = -2 * p_plus_j[j]
 
-                d_e_var = var_y_given_i - 2 * p_j_given_i[j] * (1 - p_j_given_i[j])
+            # Derivative of tau w.r.t p_ij using quotient rule for tau = 1 - N/D
+            # d(tau)/dp = - (d(N)/dp * D - N * d(D)/dp) / D^2
+            d_tau_dp_ij = - (
+                d_e_var_dp_ij * var_y - e_var_y_given_x * d_var_y_dp_ij
+            ) / (var_y**2)
 
-                d_tau = (
-                    d_var_y * var_y
-                    - (var_y - e_var_y_given_x) * d_var_y
-                    - var_y * d_e_var
-                ) / var_y**2
+            sum_d_sq_p += (d_tau_dp_ij**2) * p_ij
+            sum_d_p += d_tau_dp_ij * p_ij
 
-                variance_sum += d_tau**2 * p_ij * (1 - p_ij)
-
-    ase = np.sqrt(variance_sum / n)
+    variance = (sum_d_sq_p - sum_d_p**2) / n
+    ase = np.sqrt(max(0, variance))
 
     return tau, ase
 
