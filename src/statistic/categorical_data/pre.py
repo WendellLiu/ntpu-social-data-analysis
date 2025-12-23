@@ -213,34 +213,59 @@ def _lambda_series2_dependent(crosstab, n):
     col_totals = crosstab.sum(axis=0).values
     row_totals = crosstab.sum(axis=1).values
 
-    f_plus_c = col_totals.max()
-    f_r_max = np.array([crosstab.iloc[i, :].max() for i in range(r)])
-    sum_f_r_max = f_r_max.sum()
-
-    denominator = n - f_plus_c
-    if denominator == 0:
+    # Calculate E1 (errors without knowing independent variable)
+    max_col_total = col_totals.max()
+    E1 = n - max_col_total
+    if E1 == 0:  # Avoid division by zero
         return 0.0, 0.0
 
-    lambda_val = (sum_f_r_max - f_plus_c) / denominator
+    # Calculate E2 (errors with knowing independent variable)
+    # Sum of maximum frequencies in each row
+    sum_max_in_each_row = np.array([crosstab.iloc[i, :].max() for i in range(r)]).sum()
+    E2 = n - sum_max_in_each_row
 
-    # ASE using Delta Method
-    variance_sum = 0
+    # Calculate Lambda value using the (E1 - E2) / E1 formula
+    lambda_val = (E1 - E2) / E1
+
+    # ASE using Delta Method (corrected)
+    # Based on delta method, Var(lambda) = (sum(d_ij^2 * p_ij) - (sum(d_ij * p_ij))^2) / n
+    prob_E1 = E1 / n  # E1 in probability terms
+    if prob_E1 == 0:
+        return lambda_val, 0.0
+
+    # Handle ties for the modal column
+    modal_col_indices = np.where(col_totals == max_col_total)[0]
+    n_modal_col = len(modal_col_indices)
+
+    sum_d_sq_p = 0
+    sum_d_p = 0
 
     for i in range(r):
         row_max = crosstab.iloc[i, :].max()
-        max_indices = np.where(crosstab.iloc[i, :].values == row_max)[0]
-        n_max = len(max_indices)
+        row_max_indices = np.where(crosstab.iloc[i, :].values == row_max)[0]
+        n_row_max = len(row_max_indices)
 
         for j in range(c):
-            f_ij = crosstab.iloc[i, j]
-            I_ij = 1 if j in max_indices else 0
-            I_j_modal = 1 if col_totals[j] == f_plus_c else 0
+            p_ij = crosstab.iloc[i, j] / n
+            if p_ij == 0:  # Skip zero probabilities
+                continue
 
-            term = (I_ij / n_max - I_j_modal) / denominator
-            p_ij = f_ij / n
-            variance_sum += term**2 * p_ij * (1 - p_ij)
+            I_ij_row_max = 1 if j in row_max_indices else 0
+            I_j_modal_col = 1 if j in modal_col_indices else 0
 
-    ase = np.sqrt(variance_sum / n)
+            # Derivative of N and D w.r.t p_ij, handling ties by averaging.
+            dN_dp_ij = (I_ij_row_max / n_row_max) - (I_j_modal_col / n_modal_col)
+            dD_dp_ij = -(I_j_modal_col / n_modal_col)
+
+            # Derivative of lambda w.r.t p_ij
+            # d_lambda/d_p_ij = (1/D) * (dN/dp_ij - lambda * dD/dp_ij)
+            d_lambda_dp_ij = (dN_dp_ij - lambda_val * dD_dp_ij) / prob_E1
+
+            sum_d_sq_p += (d_lambda_dp_ij**2) * p_ij
+            sum_d_p += d_lambda_dp_ij * p_ij
+
+    variance = (sum_d_sq_p - sum_d_p**2) / n
+    ase = np.sqrt(max(0, variance))
 
     return lambda_val, ase
 
@@ -275,8 +300,21 @@ def _lambda_symmetric(crosstab, n):
 
     lambda_val = numerator / denominator
 
-    # ASE using Delta Method
-    variance_sum = 0
+    # ASE using Delta Method (corrected)
+    # Based on delta method, Var(lambda) = (sum(d_ij^2 * p_ij) - (sum(d_ij * p_ij))^2) / n
+    prob_denominator = denominator / n
+    if prob_denominator == 0:
+        return lambda_val, 0.0
+
+    # Handle ties for modal row and column totals
+    modal_col_indices = np.where(col_totals == f_plus_c)[0]
+    n_modal_col = len(modal_col_indices)
+
+    modal_row_indices = np.where(row_totals == f_r_plus)[0]
+    n_modal_row = len(modal_row_indices)
+
+    sum_d_sq_p = 0
+    sum_d_p = 0
 
     for i in range(r):
         row_max = crosstab.iloc[i, :].max()
@@ -288,21 +326,30 @@ def _lambda_symmetric(crosstab, n):
             col_max_indices = np.where(crosstab.iloc[:, j].values == col_max)[0]
             n_col_max = len(col_max_indices)
 
-            f_ij = crosstab.iloc[i, j]
+            p_ij = crosstab.iloc[i, j] / n
+            if p_ij == 0:  # Skip zero probabilities
+                continue
 
-            I_ij_row = 1 if j in row_max_indices else 0
-            I_ij_col = 1 if i in col_max_indices else 0
-            I_j_modal = 1 if col_totals[j] == f_plus_c else 0
-            I_i_modal = 1 if row_totals[i] == f_r_plus else 0
+            I_ij_row_max = 1 if j in row_max_indices else 0
+            I_ij_col_max = 1 if i in col_max_indices else 0
+            I_j_modal_col = 1 if j in modal_col_indices else 0
+            I_i_modal_row = 1 if i in modal_row_indices else 0
 
-            term = (
-                I_ij_row / n_row_max + I_ij_col / n_col_max - I_j_modal - I_i_modal
-            ) / denominator
+            # Derivative of Num and Den w.r.t p_ij, handling ties by averaging.
+            dN_dp_ij = (I_ij_row_max / n_row_max) + (I_ij_col_max / n_col_max) - \
+                       (I_j_modal_col / n_modal_col) - (I_i_modal_row / n_modal_row)
 
-            p_ij = f_ij / n
-            variance_sum += term**2 * p_ij * (1 - p_ij)
+            dDen_dp_ij = -(I_j_modal_col / n_modal_col) - (I_i_modal_row / n_modal_row)
 
-    ase = np.sqrt(variance_sum / n)
+            # Derivative of symmetric lambda w.r.t p_ij
+            # d_lambda_sym/d_p_ij = (1/Den) * (dNum/dp_ij - lambda_sym * dDen/dp_ij)
+            d_lambda_sym_dp_ij = (dN_dp_ij - lambda_val * dDen_dp_ij) / prob_denominator
+
+            sum_d_sq_p += (d_lambda_sym_dp_ij**2) * p_ij
+            sum_d_p += d_lambda_sym_dp_ij * p_ij
+
+    variance = (sum_d_sq_p - sum_d_p**2) / n
+    ase = np.sqrt(max(0, variance))
 
     return lambda_val, ase
 
